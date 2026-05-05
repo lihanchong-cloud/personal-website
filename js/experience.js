@@ -211,6 +211,8 @@ document.querySelectorAll('.tl-item[data-exp]').forEach(item => {
   item.addEventListener('click', () => {
     if (item.dataset.exp === 'daydayup') {
       window.location.href = 'experiences.html';
+    } else if (item.dataset.exp === 'leonglee') {
+      window.location.href = 'leonglee.html';
     } else {
       openExperience(item.dataset.exp);
     }

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leong Lee International — Rochelle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; overflow: hidden; }
+
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0c0906;
+      color: #fff;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       WINDOW LAYOUT (all measured from viewport edges)
+       ─────────────────────────────────────────────────────
+       VERTICAL:
+         Ceiling:             0  → 13vh
+         Window zone:        13vh → 78vh
+         Sill + seat + floor: 78vh → 100vh
+
+       HORIZONTAL (5 columns):
+         Left wall edge:      0% → 2%
+         Left partial win:    2% → 20%   (18% wide — cut off)
+         Left pillar:        20% → 27%   (7% wide)
+         Centre window:      27% → 73%   (46% wide — full)
+         Right pillar:       73% → 80%   (7% wide)
+         Right partial win:  80% → 98%   (18% wide — cut off)
+         Right wall edge:    98% → 100%
+    ══════════════════════════════════════════════════════ */
+
+    /* ── CEILING ── */
+    .cab-ceiling {
+      position: fixed; inset: 0; z-index: 50;
+      height: 13vh;
+      background: linear-gradient(to bottom, #080604 50%, #100d08);
+      pointer-events: none;
+    }
+    /* Overhead panel rim */
+    .cab-ceiling::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 2%; right: 2%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #2a2218 15%, #2a2218 85%, transparent);
+    }
+
+    /* ── FLOOR + SEAT ── */
+    .cab-floor {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+      height: 22vh;
+      background: linear-gradient(to top, #050403 60%, #100d08);
+      pointer-events: none;
+    }
+    /* Seat cushion */
+    .cab-seat {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 51;
+      height: 14vh;
+      background: linear-gradient(to top, #12090204, #1e110504, #241508);
+      background: linear-gradient(160deg, #1c1008 0%, #2a1a0a 40%, #1a0e06 100%);
+      border-top: 1px solid #3a2210;
+      pointer-events: none;
+    }
+    /* Seat stitching */
+    .cab-seat::before {
+      content: '';
+      position: absolute;
+      top: 9px; left: 8%; right: 8%;
+      height: 1px;
+      background: rgba(255,255,255,0.035);
+    }
+    /* Window sill rail (bottom of window zone) */
+    .cab-sill {
+      position: fixed; bottom: 22vh; left: 0; right: 0; z-index: 52;
+      height: 6px;
+      background: linear-gradient(to right, #181410, #28201a 15%, #28201a 85%, #181410);
+      pointer-events: none;
+    }
+
+    /* ── LEFT WALL EDGE ── */
+    .cab-edge-l {
+      position: fixed; top: 13vh; bottom: 22vh; left: 0; z-index: 50;
+      width: 2%;
+      background: #070604;
+      pointer-events: none;
+    }
+
+    /* ── RIGHT WALL EDGE ── */
+    .cab-edge-r {
+      position: fixed; top: 13vh; bottom: 22vh; right: 0; z-index: 50;
+      width: 2%;
+      background: #070604;
+      pointer-events: none;
+    }
+
+    /* ── LEFT PILLAR (between left partial window and centre window) ── */
+    .cab-pillar-l {
+      position: fixed; top: 13vh; bottom: 22vh; left: 20%; z-index: 50;
+      width: 7%;
+      background: linear-gradient(to right, #0e0b08, #181410 40%, #1a1612 60%, #111009);
+      pointer-events: none;
+    }
+    .cab-pillar-l::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 45%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.04) 20%, rgba(255,255,255,0.04) 80%, transparent);
+    }
+
+    /* ── RIGHT PILLAR ── */
+    .cab-pillar-r {
+      position: fixed; top: 13vh; bottom: 22vh; right: 20%; z-index: 50;
+      width: 7%;
+      background: linear-gradient(to left, #0e0b08, #181410 40%, #1a1612 60%, #111009);
+      pointer-events: none;
+    }
+    .cab-pillar-r::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 54%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.04) 20%, rgba(255,255,255,0.04) 80%, transparent);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       WINDOW FRAMES (pointer-events: none, z above cabin)
+    ══════════════════════════════════════════════════════ */
+
+    /* Centre window frame */
+    .win-frame-c {
+      position: fixed; top: 13vh; bottom: 22vh; left: 27%; right: 27%; z-index: 60;
+      border: 5px solid #222018;
+      border-radius: 18px;
+      pointer-events: none;
+      box-shadow:
+        0 0 0 1px #2e2a20,
+        inset 0 0 40px rgba(0,0,0,0.2);
+    }
+    /* Glass reflection — centre */
+    .win-frame-c::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 13px;
+      background: linear-gradient(130deg,
+        rgba(255,255,255,0.055) 0%,
+        rgba(255,255,255,0.01) 30%,
+        transparent 55%
+      );
+    }
+
+    /* Left partial window frame —
+       Visually: left border bleeds off-screen, only right+top+bottom visible */
+    .win-frame-l {
+      position: fixed; top: 13vh; bottom: 22vh;
+      left: -2%;   /* bleed off left edge so left border is hidden */
+      right: 73%;  /* right edge aligns with left pillar start (100-27=73) */
+      z-index: 60;
+      border: 5px solid #222018;
+      border-radius: 18px;
+      pointer-events: none;
+      box-shadow: 0 0 0 1px #2e2a20;
+      /* Hide left border with overflow or just let it clip off-screen */
+      clip-path: inset(0 0 0 2%); /* clip the left bleed back */
+    }
+    .win-frame-l::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 13px;
+      background: linear-gradient(130deg,
+        rgba(255,255,255,0.03) 0%,
+        transparent 50%
+      );
+    }
+
+    /* Right partial window frame */
+    .win-frame-r {
+      position: fixed; top: 13vh; bottom: 22vh;
+      left: 73%;   /* left edge aligns with right pillar end */
+      right: -2%;  /* bleed off right edge */
+      z-index: 60;
+      border: 5px solid #222018;
+      border-radius: 18px;
+      pointer-events: none;
+      box-shadow: 0 0 0 1px #2e2a20;
+      clip-path: inset(0 2% 0 0);
+    }
+    .win-frame-r::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 13px;
+      background: linear-gradient(130deg,
+        rgba(255,255,255,0.03) 0%,
+        transparent 50%
+      );
+    }
+
+    /* Scan lines on all windows (glass texture) */
+    .win-scanlines {
+      position: fixed; top: 13vh; bottom: 22vh; left: 2%; right: 2%; z-index: 61;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.018) 3px,
+        rgba(0,0,0,0.018) 4px
+      );
+    }
+
+    /* ══════════════════════════════════════════════════════
+       SCENES — horizontal strip, snaps left-to-right
+    ══════════════════════════════════════════════════════ */
+
+    .scenes {
+      display: flex;
+      flex-direction: row;
+      width: 400vw;
+      height: 100vh;
+      transition: transform 1.6s cubic-bezier(0.76, 0, 0.24, 1);
+      will-change: transform;
+    }
+
+    .scene {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      scroll-snap-align: start;
+      overflow: hidden;
+    }
+
+    /* The outside landscape — drifts slowly left (train moving right) */
+    .scene-bg {
+      position: absolute;
+      inset: -4% -2%;
+      background-size: cover;
+      background-position: center;
+      animation: train-drift 10s linear infinite;
+      transition: opacity 0.6s ease;
+    }
+
+    @keyframes train-drift {
+      0%   { transform: translateX(0%); }
+      100% { transform: translateX(-5%); }
+    }
+
+    /* Gradient fallbacks (replace src with real photos) */
+    .scene-intro .scene-bg {
+      background-image:
+        url('assets/experiences/leonglee/vn1.jpeg'),
+        linear-gradient(160deg, #3d1f00 0%, #5c3200 30%, #1a0900 70%, #0d0500 100%);
+    }
+    .scene-ev .scene-bg {
+      background-image:
+        url('assets/experiences/leonglee/vn2.jpeg'),
+        linear-gradient(160deg, #002a10 0%, #004520 35%, #001a08 100%);
+    }
+    .scene-research .scene-bg {
+      background-image:
+        url('assets/experiences/leonglee/vn3.jpeg'),
+        linear-gradient(160deg, #001428 0%, #00203d 40%, #000d1a 100%);
+    }
+    .scene-close .scene-bg {
+      background-image:
+        url('assets/experiences/leonglee/vn4.jpeg'),
+        linear-gradient(160deg, #3d2000 0%, #5c3500 30%, #2a1500 70%, #100800 100%);
+    }
+
+    /* Vignette over each scene */
+    .scene::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 65% 65% at 50% 50%,
+        transparent 35%, rgba(0,0,0,0.5) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Content sits inside the centre window boundaries */
+    .scene-content {
+      position: absolute;
+      left: 27%; right: 27%;
+      top: 13vh;
+      height: calc(78vh - 13vh);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px 28px;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    .scene.active .scene-content { opacity: 1; transform: translateY(0); }
+
+    .scene-tag {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      margin-bottom: 16px;
+    }
+
+    .scene-divider {
+      width: 28px; height: 1px;
+      background: rgba(255,255,255,0.16);
+      margin: 0 auto 20px;
+    }
+
+    .scene-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.18;
+      color: #fff;
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    .scene-intro .scene-title { font-size: clamp(2rem, 3.8vw, 3.2rem); }
+
+    .scene-body {
+      font-size: 0.88rem;
+      line-height: 1.82;
+      color: rgba(255,255,255,0.48);
+      font-weight: 300;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    .scene-intro .scene-body {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.26);
+      margin-top: 6px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       UI CHROME
+    ══════════════════════════════════════════════════════ */
+
+    .back-link {
+      position: fixed; top: 0; left: 26px;
+      height: 13vh;
+      display: flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.28);
+      text-decoration: none;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      transition: color 0.2s; z-index: 200;
+    }
+    .back-link:hover { color: rgba(255,255,255,0.75); }
+
+    /* Dot nav — sits in the right pillar area */
+    .dot-nav {
+      position: fixed; right: 23.5%; top: 50%; transform: translateY(-50%);
+      z-index: 200;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .dot-btn {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: none; cursor: pointer; padding: 0;
+      transition: all 0.3s ease;
+    }
+    .dot-btn.active {
+      background: rgba(255,255,255,0.65);
+      transform: scale(1.5);
+    }
+
+    /* Scene counter */
+    .scene-counter {
+      position: fixed; bottom: 24vh; right: 22%;
+      z-index: 200;
+      font-size: 0.6rem; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.16);
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: fixed; bottom: 24vh; left: 50%; transform: translateX(-50%);
+      z-index: 200;
+      display: flex; flex-direction: row; align-items: center; gap: 8px;
+      pointer-events: none; transition: opacity 0.4s;
+    }
+    .scroll-hint-line {
+      width: 26px; height: 1px;
+      background: rgba(255,255,255,0.1);
+      animation: shpulse 2.2s ease-in-out infinite;
+    }
+    .scroll-hint-label {
+      font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.16);
+    }
+    @keyframes shpulse {
+      0%,100% { opacity: 0.2; transform: scaleX(1); }
+      50%      { opacity: 0.7; transform: scaleX(0.55); }
+    }
+
+    /* Progress bar along bottom of centre window */
+    .progress-track {
+      position: fixed; bottom: 22vh; left: 27%; right: 27%;
+      height: 1.5px; background: rgba(255,255,255,0.04); z-index: 200;
+      pointer-events: none;
+    }
+    .progress-fill {
+      height: 100%; width: 0%;
+      background: rgba(255,255,255,0.2);
+      border-radius: 1px;
+      transition: width 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ TRAIN CABIN FRAME ══ -->
+  <div class="cab-ceiling"></div>
+  <div class="cab-floor"></div>
+  <div class="cab-seat"></div>
+  <div class="cab-sill"></div>
+  <div class="cab-edge-l"></div>
+  <div class="cab-edge-r"></div>
+  <div class="cab-pillar-l"></div>
+  <div class="cab-pillar-r"></div>
+
+  <!-- ══ WINDOW FRAMES ══ -->
+  <div class="win-frame-l"></div>
+  <div class="win-frame-c"></div>
+  <div class="win-frame-r"></div>
+  <div class="win-scanlines"></div>
+
+  <!-- ══ UI CHROME ══ -->
+  <a href="index.html#resume" class="back-link">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Back
+  </a>
+
+  <nav class="dot-nav" id="dotNav" aria-label="Scenes"></nav>
+  <div class="scene-counter" id="sceneCounter">01 / 04</div>
+
+  <div class="scroll-hint" id="scrollHint">
+    <div class="scroll-hint-line"></div>
+    <span class="scroll-hint-label">Swipe</span>
+  </div>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- ══ SCENES (visible through windows) ══ -->
+  <div class="scenes">
+
+    <section class="scene scene-intro" data-index="0">
+      <div class="scene-bg"></div>
+      <div class="scene-content">
+        <span class="scene-tag">Dec 2024 — Jan 2025 &nbsp;·&nbsp; Ho Chi Minh City, Vietnam</span>
+        <h1 class="scene-title">Leong Lee<br>International</h1>
+        <p class="scene-body">Business Development Intern</p>
+      </div>
+    </section>
+
+    <section class="scene scene-ev" data-index="1">
+      <div class="scene-bg"></div>
+      <div class="scene-content">
+        <span class="scene-tag">Chapter 01</span>
+        <div class="scene-divider"></div>
+        <h2 class="scene-title">Vietnam & the Electric Vehicle Boom</h2>
+        <p class="scene-body">A two-month stint in Ho Chi Minh City gave me a ground-level view of one of Southeast Asia's most exciting emerging markets. Vietnam's EV landscape is evolving fast — domestic players like VinFast are scaling aggressively while international brands eye their market entry windows.</p>
+      </div>
+    </section>
+
+    <section class="scene scene-research" data-index="2">
+      <div class="scene-bg"></div>
+      <div class="scene-content">
+        <span class="scene-tag">Chapter 02</span>
+        <div class="scene-divider"></div>
+        <h2 class="scene-title">Market Research &amp; Strategic Insights</h2>
+        <p class="scene-body">I mapped the competitive landscape across EV manufacturers, charging infrastructure providers, and government policy frameworks. Vietnam's push toward electrification — backed by strong incentives and a young, mobile-first population — creates real opportunities for businesses in the right part of the value chain.</p>
+      </div>
+    </section>
+
+    <section class="scene scene-close" data-index="3">
+      <div class="scene-bg"></div>
+      <div class="scene-content">
+        <span class="scene-tag">Takeaway</span>
+        <div class="scene-divider"></div>
+        <h2 class="scene-title">Signal Through Noise</h2>
+        <p class="scene-body">This experience sharpened my ability to synthesise fragmented market information into clear, actionable recommendations — a skill that transfers directly into product and strategy work. Vietnam taught me to find signal through noise.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const scenesEl = document.querySelector('.scenes');
+    const scenes   = document.querySelectorAll('.scene');
+    const dotNav   = document.getElementById('dotNav');
+    const counter  = document.getElementById('sceneCounter');
+    const progress = document.getElementById('progressFill');
+    const hint     = document.getElementById('scrollHint');
+    const total    = scenes.length;
+    let   active   = -1;
+
+    scenes.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'dot-btn';
+      btn.setAttribute('aria-label', `Scene ${i + 1}`);
+      dotNav.appendChild(btn);
+    });
+
+    const dots = dotNav.querySelectorAll('.dot-btn');
+
+    // Core navigation — moves strip via CSS transform
+    function goTo(i) {
+      active = ((i % total) + total) % total;
+      scenesEl.style.transform = `translateX(-${active * 100}vw)`;
+      scenes.forEach((s, j) => s.classList.toggle('active', j === active));
+      dots.forEach((d, j)   => d.classList.toggle('active', j === active));
+      counter.textContent  = `${String(active + 1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+      progress.style.width = `${(active / (total - 1)) * 100}%`;
+      hint.style.opacity   = active === total - 1 ? '0' : '1';
+    }
+
+    // Dot nav clicks
+    dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); resetTimer(); }));
+
+    // Auto-advance every 4 seconds, loops back to start
+    let autoTimer = setInterval(() => goTo(active + 1), 2500);
+    function resetTimer() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => goTo(active + 1), 2500);
+    }
+
+    // Trackpad swipe
+    let wheelLock = false;
+    window.addEventListener('wheel', e => {
+      e.preventDefault();
+      if (wheelLock) return;
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (Math.abs(delta) < 10) return;
+      goTo(active + (delta > 0 ? 1 : -1));
+      resetTimer();
+      wheelLock = true;
+      setTimeout(() => { wheelLock = false; }, 900);
+    }, { passive: false });
+
+    // Touch swipe
+    let touchX = null;
+    window.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    window.addEventListener('touchend', e => {
+      if (touchX === null) return;
+      const dx = touchX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 50) { goTo(active + (dx > 0 ? 1 : -1)); resetTimer(); }
+      touchX = null;
+    }, { passive: true });
+
+    goTo(0);
+  </script>
+</body>
+</html>
