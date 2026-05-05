@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rochelle Chong Li Han</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-brand">Rochelle.CLH</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home"     class="nav-link active" data-section="home">Home</a></li>
+      <li><a href="#about"    class="nav-link"        data-section="about">About</a></li>
+      <li><a href="#resume"   class="nav-link"        data-section="resume">Resume</a></li>
+      <li><a href="#contact"  class="nav-link"        data-section="contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="hero-section">
+    <canvas id="hero-canvas"></canvas>
+
+    <div class="bracket bracket-tl"></div>
+    <div class="bracket bracket-tr"></div>
+    <div class="bracket bracket-bl"></div>
+    <div class="bracket bracket-br"></div>
+
+    <div class="sys-badge">
+      <span class="sys-dot"></span>
+      <span>SYS.READY</span>
+    </div>
+
+    <div class="hero-sub">
+      <p class="hero-fullname">CHONG LI HAN</p>
+      <p class="hero-role">Product Manager at Shopee</p>
+    </div>
+
+    <div class="scroll-hint">SCROLL <span class="scroll-line"></span></div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="page-section">
+    <div class="inner">
+      <header class="sec-head fade-up">
+        <span class="sec-tag">// 01</span>
+        <h2>About Me</h2>
+      </header>
+      <div class="about-grid">
+        <div class="about-text fade-up">
+          <p class="about-lead">Hello, I'm <strong>Rochelle</strong>.</p>
+          <p>A final year student at Singapore Management University, pursuing a Double Degree in Business Management (Finance Analytics) and Information Systems (Business Analytics). I sit at the intersection of data, business strategy, and technology — and that's exactly where I want to build my career.</p>
+          <p>I'm passionate about Product Management because it is the one role that demands both sides of my brain. My analytics background taught me to let data guide decisions, not gut feel alone — to ask why users behave a certain way, then design solutions that are measurable and intentional. My business training taught me that a great product means nothing without a clear market, a viable model, and stakeholders who believe in the vision.</p>
+          <p>What drives me is the moment a messy problem becomes a clear product solution — when user research, business constraints, and technical feasibility click into place. I want to build products that are not just functional, but genuinely make people's lives easier.</p>
+          <div class="skill-tags">
+            <span>Python</span>
+            <span>Pandas</span>
+            <span>Matplotlib</span>
+            <span>SQL</span>
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>A/B Testing</span>
+            <span>Agile</span>
+            <span>Vue</span>
+            <span>Figma</span>
+            <span>Product Management</span>
+            <span>Data Analytics</span>
+            <span>Finance Analytics</span>
+          </div>
+        </div>
+        <div class="about-avatar fade-up">
+          <div class="avatar-frame">
+            <img src="assets/photo.jpg" alt="Rochelle Chong Li Han" />
+            <div class="avatar-scan"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume -->
+  <section id="resume" class="page-section">
+    <div class="inner">
+      <header class="sec-head fade-up">
+        <span class="sec-tag">// 03</span>
+        <h2>Resume</h2>
+      </header>
+      <div class="resume-cols">
+
+        <div class="resume-col fade-up">
+          <h3 class="col-title">Experience</h3>
+          <div class="timeline">
+            <div class="tl-item" data-exp="shopee">
+              <div class="tl-date">Feb 2026 — Present</div>
+              <div class="tl-role">Product Management Intern</div>
+              <div class="tl-org">Shopee Singapore</div>
+              <p>Own regional payment optimisation for ShopeeVIP subscription across Indonesia, Vietnam, and Thailand — writing PRDs and expanding supported payment methods (Credit Card, QRIS). Drive sequential payment logic, design A/B experiments, and track DAS/MAS, retention, and churn rate to inform product decisions.</p>
+              <button class="tl-read-more">Read my story <span>→</span></button>
+            </div>
+            <div class="tl-item" data-exp="ant">
+              <div class="tl-date">May 2025 — Aug 2025</div>
+              <div class="tl-role">Business Analyst &amp; Operations Intern</div>
+              <div class="tl-org">Ant International — Shanghai, China</div>
+              <p>Increased traffic, engagement, and new funds-in by over 50% through data-driven optimisation of localised content for emerging markets. Analysed World Card and VCC usage trends to produce feature-level insights that informed product and regional roadmaps.</p>
+              <button class="tl-read-more">Read my story <span>→</span></button>
+            </div>
+            <div class="tl-item" data-exp="leonglee">
+              <div class="tl-date">Dec 2024 — Jan 2025</div>
+              <div class="tl-role">Business Development Intern</div>
+              <div class="tl-org">Leong Lee International Limited — Ho Chi Minh City, Vietnam</div>
+              <p>Analysed Vietnam's Electric Vehicle (EV) landscape to identify market entry opportunities and inform business development strategy.</p>
+              <button class="tl-read-more">Read my story <span>→</span></button>
+            </div>
+            <div class="tl-item" data-exp="daydayup">
+              <div class="tl-date">May 2024 — Aug 2024</div>
+              <div class="tl-role">Venture Operations &amp; Analytics Intern</div>
+              <div class="tl-org">DayDayUp — Beijing, China</div>
+              <p>Built a startup-investor matching database and rule-based scoring rubric enabling 30+ deep-tech partnership matches. Spearheaded company participation at CHITEC, building 100+ WeChat contacts and 200+ business connections.</p>
+              <button class="tl-read-more">Read my story <span>→</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-col fade-up">
+          <h3 class="col-title">Education</h3>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-date">Aug 2023 — May 2027</div>
+              <div class="tl-role">Double Degree — B.Sc. Information Systems (Business Analytics) &amp; BBM (Finance Analytics)</div>
+              <div class="tl-org">Singapore Management University</div>
+              <p>GPA: 3.45 / 4.00</p>
+            </div>
+          </div>
+          <h3 class="col-title" style="margin-top:2.5rem">Achievements</h3>
+          <ul class="cert-list">
+            <li>Alibaba Cloud AI Hackathon — Special Recognition Award (Apr 2025)</li>
+            <li>Zalora Product Challenge — Top 16 Semi-Finalist (Oct 2024)</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="cv-download fade-up">
+        <a href="#" class="btn-cv">
+          Download CV
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="page-section alt-bg contact-section">
+    <div class="contact-grid-bg"></div>
+    <div class="inner contact-inner">
+      <header class="sec-head fade-up">
+        <span class="sec-tag">// 04</span>
+        <h2>Get In Touch</h2>
+      </header>
+      <p class="contact-lead fade-up">Have a project in mind? Let's build something together.</p>
+      <a href="mailto:rochelle@example.com" class="contact-email fade-up">rochelle@example.com</a>
+      <div class="socials fade-up">
+        <a href="#" class="social">GitHub</a>
+        <a href="#" class="social">LinkedIn</a>
+        <a href="#" class="social">Twitter</a>
+        <a href="#" class="social">Dribbble</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Story Overlay -->
+  <div id="exp-overlay" class="exp-overlay" aria-hidden="true">
+    <button class="exp-close" id="expClose">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+      Close
+    </button>
+    <div class="exp-scroll" id="expScroll">
+      <div class="exp-hero" id="expHero">
+        <span class="exp-hero-tag" id="expTag"></span>
+        <h1 id="expCompany"></h1>
+        <p id="expRole"></p>
+        <p id="expMeta"></p>
+      </div>
+      <div class="exp-chapters" id="expChapters"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Rochelle Chong Li Han — Built with code &amp; curiosity.</p>
+  </footer>
+
+  <script src="js/particles.js"></script>
+  <script src="js/experience.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
