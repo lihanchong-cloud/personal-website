@@ -208,5 +208,11 @@ overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
 
 document.querySelectorAll('.tl-item[data-exp]').forEach(item => {
-  item.addEventListener('click', () => openExperience(item.dataset.exp));
+  item.addEventListener('click', () => {
+    if (item.dataset.exp === 'daydayup') {
+      window.location.href = 'experiences.html';
+    } else {
+      openExperience(item.dataset.exp);
+    }
+  });
 });
