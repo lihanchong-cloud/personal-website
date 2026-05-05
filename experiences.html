@@ -107,7 +107,7 @@
     .dynamic-desc {
       text-align: center;
       margin-top: 14px;
-      height: 64px;
+      height: 150px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -116,16 +116,16 @@
     }
     .desc-label {
       font-family: 'Reggae One', cursive;
-      font-size: 1.8rem;
+      font-size: 5rem;
       font-weight: 400;
       letter-spacing: 0.02em;
-      color: #38bdf8;
+      color: #ffff;
     }
     .desc-role {
       font-family: 'Reggae One', cursive;
       font-size: 1rem;
       color: #475569;
-      margin-top: 2px;
+      margin-top: 10px;
       letter-spacing: 0.02em;
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
@@ -140,7 +140,7 @@
 
     .experience-section {
       width: 100%;
-      padding: 80px 0;
+      padding: 20px 0 80px;
       background: #000;
       overflow: visible;          /* MUST be visible, not hidden */
       position: relative;         /* anchor for backdrop + arrow buttons */
@@ -195,7 +195,7 @@
       to   { transform: translate(18px, 12px) scale(1.08); }
     }
 
-    .dot-grid {
+1    .dot-grid {
       position: absolute;
       inset: 0;
       background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
@@ -254,15 +254,13 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      box-shadow: none;
       transition: border-color 0.4s ease, box-shadow 0.4s ease,
                   transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
                   opacity  0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Center card gets a brighter glass edge */
+    /* Center card gets a brighter glass edge + shadow */
     .card.active {
       border: 1px solid rgba(255, 255, 255, 0.22);
       box-shadow:
@@ -316,7 +314,7 @@
 
     .card-company {
       font-family: 'Courier New', monospace;
-      font-size: 14px;
+      font-size: 40px;
       color: rgba(255, 255, 255, 0.9);
       font-weight: 600;
       margin: 2px 0;
@@ -324,7 +322,7 @@
 
     .card-role {
       font-family: 'Courier New', monospace;
-      font-size: 10px;
+      font-size: 14px;
       color: rgba(255, 255, 255, 0.35);
     }
 
@@ -392,55 +390,11 @@
     .dot.active { background: #38bdf8; width: 20px; }
 
     /* ── Chat bar ── */
-    .chat-bar {
-      width: 100%;
-      max-width: 660px;
-      padding: 0 24px 40px;
-    }
-    .chat-inner {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 14px;
-      padding: 11px 10px 11px 18px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      transition: border-color 0.25s;
-    }
-    .chat-inner:focus-within { border-color: rgba(56,189,248,0.32); }
-    .chat-input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      color: #fff;
-      font-family: inherit;
-      font-size: 0.88rem;
-    }
-    .chat-input::placeholder { color: #2d3748; }
-    .icon-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: opacity 0.2s;
-    }
-    .mic-btn { background: transparent; color: #4a5568; }
-    .mic-btn:hover { color: #fff; }
-    .send-btn { background: linear-gradient(135deg, #38bdf8, #6366f1); color: #fff; }
-    .send-btn:hover { opacity: 0.85; }
   </style>
 </head>
 <body>
 
-  <a href="index.html" class="back-link">
+  <a href="index.html#resume" class="back-link">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <polyline points="15 18 9 12 15 6"/>
     </svg>
@@ -494,27 +448,6 @@
     <!-- Dots -->
     <div class="dots" id="dots"></div>
 
-    <!-- Chat bar -->
-    <div class="chat-bar">
-      <div class="chat-inner">
-        <input class="chat-input" id="chatInput" type="text"
-          placeholder="Ask me about my experiences…" autocomplete="off" />
-        <button class="icon-btn mic-btn" aria-label="Voice input">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-            <line x1="12" y1="19" x2="12" y2="23"/>
-            <line x1="8"  y1="23" x2="16" y2="23"/>
-          </svg>
-        </button>
-        <button class="icon-btn send-btn" aria-label="Send">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <line x1="22" y1="2" x2="11" y2="13"/>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-          </svg>
-        </button>
-      </div>
-    </div>
 
   </div><!-- /.page -->
 
@@ -526,13 +459,33 @@
 
     /* ── Data ── */
     const CARDS = [
-      { index: '#1', company: 'Shopee Singapore',       role: 'Product Management Intern',      period: 'Feb 2026 — Present',  imageUrl: 'assets/experiences/daydayup/bj2.jpeg' },
-      { index: '#2', company: 'Ant International',       role: 'Business Analyst & Ops Intern',  period: 'May 2025 — Aug 2025', imageUrl: 'assets/experiences/daydayup/bj3.jpeg' },
-      { index: '#3', company: 'CHITEC Expo',      imageUrl: 'assets/experiences/daydayup/bj1.jpg' },
-      { index: '#4', company: 'Leong Lee International', role: 'Business Development Intern',    period: 'Dec 2024 — Jan 2025', imageUrl: 'assets/experiences/daydayup/bj4.jpeg' },
-      { index: '#5', company: 'Company E',               role: 'Product Manager Intern',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/bj5.jpeg' },
-      { index: '#6', company: 'Company E',               role: 'Product Manager Intern',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/bj6.jpeg' },
-      { index: '#7', company: 'Company E',               role: 'Product Manager Intern',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/bj7.jpeg' },
+      { index: '#1', company: '北京',       role: 'The Forbidden City',      period: 'Feb 2026 — Present',  imageUrl: 'assets/experiences/daydayup/bj2.jpeg' },
+      { index: '#2', company: '北京',       role: 'The Wizarding World of Harry Potter - USBJ',  period: 'May 2025 — Aug 2025', imageUrl: 'assets/experiences/daydayup/bj3.jpeg' },
+      { index: '#3', company: '北京',      role: 'CHITEC Expo with Founder of Abillion, Vikas Garg', imageUrl: 'assets/experiences/daydayup/bj1.jpg' },
+      { index: '#4', company: '北京', role: 'The Great Wall of China',    period: 'Dec 2024 — Jan 2025', imageUrl: 'assets/experiences/daydayup/bj4.jpeg' },
+      { index: '#5', company: '北京',               role: 'Nanluoguxiang',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/bj5.jpeg' },
+      { index: '#6', company: '北京',               role: 'Tsinghua University',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/bj6.jpeg' },
+      { index: '#7', company: '北京',               role: 'Celebrated birthday! 01.06',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/bj7.jpeg' },
+      { index: '#8', company: '天津',               role: 'Tianjin Eye',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/tj1.jpeg' },
+      { index: '#9', company: '天津',               role: 'Tianjin Haihe River Waterfront',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/tj2.jpeg' },
+      { index: '#10', company: '洛阳',               role: 'Stepping into History - donning a traditional Hanfu in Luoyang',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/ly1.jpeg' },
+      { index: '#11', company: '洛阳',               role: '簪花 (Zanhua)',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/ly2.jpeg' },
+      { index: '#12', company: '洛阳',               role: 'Luoyi Ancient City',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/ly3.jpeg' },
+      { index: '#13', company: '洛阳',               role: 'Longmen Grottoes',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/ly4.jpeg' },
+      { index: '#14', company: '唐山',               role: '打铁花(Iron Flower) Performance',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/ts1.jpeg' },
+      { index: '#15', company: '唐山',               role: 'Tangshan Hetou Old Street',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/ts2.jpeg' },
+      { index: '#16', company: '青岛',               role: 'Tsingtao Beer Museum',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/qd1.jpeg' },
+      { index: '#17', company: '青岛',               role: 'Qingdao Olympic Sailing and Marine Culture',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/qd2.jpeg' },
+      { index: '#18', company: '青岛',               role: 'Zhanqiao Pier',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/qd3.jpeg' },
+      { index: '#19', company: '丽江',               role: 'Jade Dragon Snow Mountain',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/lj2.jpeg' },
+      { index: '#20', company: '丽江',               role: 'Prepping oxygen tanks!',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/lj3.jpeg' },
+      { index: '#21', company: '丽江',               role: 'Yunnan Crossing the Bridge Noodles (过桥米线)',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/lj4.jpeg' },
+      { index: '#22', company: '丽江',               role: 'Blue Moon Valley',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/lj5.jpeg' },
+      { index: '#23', company: '虎跳峡',               role: 'Tiger Leaping Gorge',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/htx1.jpeg' },
+      { index: '#24', company: '香格里拉',               role: 'Shangri-La',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/xgll1.jpeg' },
+      { index: '#25', company: '香格里拉',               role: 'Trying out Tibetan costume!',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/xgll2.jpeg' },
+      { index: '#26', company: '香格里拉',               role: 'Shangri-La Giant Prayer Wheel',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/xgll3.jpeg' },
+      { index: '#27', company: '香格里拉',               role: 'Tibetan Large Prayer Flags',         period: 'May — Aug 2023',      imageUrl: 'assets/experiences/daydayup/xgll4.jpeg' },
     ];
 
     const R = 800; // arc radius in px
@@ -597,16 +550,26 @@
       const cards = document.querySelectorAll('.card');
       cards.forEach((card, i) => {
         card.classList.toggle('active', i === activeIndex);
-        const offset = i - activeIndex;
+        let offset = i - activeIndex;
+        // Wrap offset so cards loop circularly (shortest path around the circle)
+        if (offset > total / 2)  offset -= total;
+        if (offset < -total / 2) offset += total;
 
         if (Math.abs(offset) > 2) {
+          // Snap instantly off-screen — no transition so the card never flies past
+          card.style.transition    = 'none';
+          const edgeOffset         = offset > 0 ? 2 : -2;
+          const { tx, ty, tz, ry, scale } = getCardTransform(edgeOffset);
+          card.style.transform     = `translateX(${tx}px) translateY(${ty}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
           card.style.opacity       = '0';
+          card.style.zIndex        = '0';
           card.style.pointerEvents = 'none';
           return;
         }
 
+        // Restore CSS transition for visible cards
+        card.style.transition    = '';
         const { tx, ty, tz, ry, scale, opacity, zIndex } = getCardTransform(offset);
-
         card.style.transform     = `translateX(${tx}px) translateY(${ty}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
         card.style.opacity       = opacity;
         card.style.zIndex        = zIndex;
